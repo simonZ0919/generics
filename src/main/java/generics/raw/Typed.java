@@ -4,28 +4,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Ken Kousen on 11/8/16.
- */
+
 public class Typed {
     public static void main(String[] args) {
+//        List<String> strings = new ArrayList<String>();
+        // type inference, since Java7
         List<String> strings = new ArrayList<>();
-        strings.add("this");
-        strings.add("is");
-        strings.add("a");
         strings.add("RAW");
         strings.add("list");
         strings.add("of");
         strings.add("strings");
+        // check type in compile time
+        // strings.add(789);
 
         for (String s : strings) {
-            System.out.printf("%7s has %d characters%n", s, s.length());
+            System.out.printf("number of characters: %d%n", s.length());
         }
-
-        List<Integer> ints = new ArrayList<>();
-        ints.add(3);
-        ints.add(new Integer(4));
-        int x = ints.get(0);
-        int y = ints.get(1);
     }
 }

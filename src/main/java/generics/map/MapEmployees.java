@@ -18,33 +18,31 @@ import static java.util.stream.Collectors.toMap;
 public class MapEmployees {
     public static List<Employee> createEmployees() {
         return Arrays.asList(
-                new Employee(1, "Peter Gibbons"),
-                new Employee(2, "Samir Nagheenanajar"),
-                new Employee(3, "Michael Bolton"),
-                new Employee(4, "Milton Waddams")
+                new Employee(2, "Peter Gibbons"),
+                new Employee(6, "Samir Nagheenanajar"),
+                new Employee(1, "Michael Bolton"),
+                new Employee(3, "Milton Waddams")
         );
     }
 
     public static void main(String[] args) {
         List<Employee> employees = createEmployees();
-        List<String> names = employees.stream()
-                .map(Employee::getName)
-                .collect(toList());
+
+        employees.stream()
+                .sorted(comparing(Employee::getId))
+                .forEach(System.out::println);
 
         List<Integer> ids = employees.stream()
                 .map(Employee::getId)
                 .collect(toList());
 
-        int totalLength = employees.stream()
-                .map(Employee::getName)
-                .mapToInt(String::length)
-                .sum();
-
+        System.out.println("Employ ID:"+ ids);
 
         // Add employees to a map using id as key
         Map<Integer, Employee> employeeMap = employees.stream()
                 .collect(toMap(Employee::getId, Function.identity()));
         employeeMap.forEach((id, emp) -> System.out.println(id + ": " + emp));
+
 
         // Sort employees by id and print them
         System.out.println("Sorted by key:");
@@ -54,13 +52,6 @@ public class MapEmployees {
                     System.out.println(entry.getKey() + ": " + entry.getValue());
                 });
 
-        // Reverse sort employees by id and print them
-        System.out.println("Reverse sorted by key:");
-        employeeMap.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
-                .forEach(entry -> {
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                });
 
         // Sort employees by name and print them
         System.out.println("Sorted by name:");
